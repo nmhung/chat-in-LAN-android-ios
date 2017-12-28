@@ -3,7 +3,6 @@ package com.fitken.lanchat.ui.adapter
 /**
  * Created by ken on 12/27/17.
  */
-import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -14,26 +13,21 @@ import com.fitken.lanchat.ui.widget.RecyclerBaseHolder
 import de.mannodermaus.rxbonjour.BonjourService
 
 
-class ServiceRecyclerAdapter(activity: Activity, onItemClickListener: ServiceRecyclerAdapter.OnItemClickListener) : RecyclerBaseAdapter<BonjourService>() {
-    private var onItemClick: OnItemClickListener? = onItemClickListener
-    private var activity: Activity = activity
+class ServiceRecyclerAdapter :
+        RecyclerBaseAdapter<BonjourService>() {
     override fun createViewHolder(inflater: LayoutInflater, parent: ViewGroup,
-                                  viewType: Int) = Holder(activity, inflater, parent, this.onItemClick!!)
+                                  viewType: Int) = Holder(inflater, parent)
 
-    class Holder(activity: Activity,
-                 inflater: LayoutInflater,
-                 parent: ViewGroup, itemClickListener: OnItemClickListener)
+    class Holder(inflater: LayoutInflater,
+                 parent: ViewGroup)
         : RecyclerBaseHolder<BonjourService>(inflater, parent, R.layout.item_bonjour_service) {
 
 
-        var tvName: TextView = activity.findViewById(R.id.tv_name)
-        var tvType: TextView = activity.findViewById(R.id.tv_type)
-        var tvHostPortV4: TextView = activity.findViewById(R.id.tv_host_port_v4)
-        var tvHostPortV6: TextView = activity.findViewById(R.id.tv_host_port_v6)
-        var tvTxtRecords: TextView = activity.findViewById(R.id.tv_txtrecords)
-
-        //        lateinit var tvTxtRecords: TextView
-        private var onItemClick: OnItemClickListener? = itemClickListener
+        private var tvName: TextView = itemView.findViewById(R.id.tv_name)
+        private var tvType: TextView = itemView.findViewById(R.id.tv_type)
+        private var tvHostPortV4: TextView = itemView.findViewById(R.id.tv_host_port_v4)
+        private var tvHostPortV6: TextView = itemView.findViewById(R.id.tv_host_port_v6)
+        private var tvTxtRecords: TextView = itemView.findViewById(R.id.tv_txtrecords)
 
         private var context: Context? = null
 
@@ -72,17 +66,7 @@ class ServiceRecyclerAdapter(activity: Activity, onItemClickListener: ServiceRec
             } else {
                 tvTxtRecords.text = tvTxtRecords.resources.getString(R.string.tv_notxtrecords)
             }
-
-            itemView.setOnClickListener {
-                onItemClick!!.onItemClicked(item)
-            }
         }
 
     }
-
-
-    public interface OnItemClickListener {
-        fun onItemClicked(item: BonjourService)
-    }
-
 }
