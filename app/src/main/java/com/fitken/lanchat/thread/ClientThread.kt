@@ -26,15 +26,13 @@ class ClientThread(context: Context, handler: Handler, bonjourService: BonjourSe
             MyApplication.instance.setClientSocket(mSocket)
             val commThread = CommunicationThread(mContext, mHandler, mSocket)
             Thread(commThread).start()
-            mContext.startActivity(Intent(mContext, ChatActivity::class.java))
+            val intent = Intent(mContext, ChatActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            mContext.startActivity(intent)
         } catch (e1: UnknownHostException) {
             e1.printStackTrace()
         } catch (e1: IOException) {
             e1.printStackTrace()
         }
-    }
-
-    fun getSocket(): Socket {
-        return mSocket
     }
 }

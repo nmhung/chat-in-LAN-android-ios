@@ -32,7 +32,9 @@ class ServerThread(context: Context, handler: Handler) : Runnable {
 
                 val commThread = CommunicationThread(mContext, mHandler, socket)
                 Thread(commThread).start()
-                mContext.startActivity(Intent(mContext, ChatActivity::class.java))
+                val intent = Intent(mContext, ChatActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                mContext.startActivity(intent)
 
             } catch (e: IOException) {
                 e.printStackTrace()

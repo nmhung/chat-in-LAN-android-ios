@@ -19,13 +19,17 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
+            android:minWidth="50dp"
             android:layout_marginTop="8dp"
-            android:textSize="18sp"
+            android:textSize="14sp"
+            android:gravity="center_horizontal"
             android:padding="10dp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/bg_item_chat_me"
             android:text="@{messageSocket.message}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Helloooo" />
+            tools:text="Hellooo" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

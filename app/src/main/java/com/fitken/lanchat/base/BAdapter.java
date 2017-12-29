@@ -66,7 +66,7 @@ public abstract class BAdapter<VH extends BAdapter.BHolder, T> extends RecyclerV
     }
 
     public void setDataSource(List<T> dataSource) {
-        if (dataSource != null && !dataSource.isEmpty()) {
+        if (dataSource != null) {
             this.dataSource = new ArrayList<>(dataSource);
             notifyDataSetChanged();
         }

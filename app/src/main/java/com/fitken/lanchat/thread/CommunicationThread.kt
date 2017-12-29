@@ -2,6 +2,8 @@ package com.fitken.lanchat.thread
 
 import android.content.Context
 import android.os.Handler
+import com.fitken.lanchat.common.Constants
+import com.fitken.lanchat.ui.model.MessageSocket
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -15,6 +17,7 @@ class CommunicationThread(context: Context, handler: Handler, clientSocket: Sock
 
     private var mContext: Context = context
     private var mInput: BufferedReader? = null
+    private val mSocket: Socket = clientSocket
 
     init {
         try {
@@ -31,7 +34,12 @@ class CommunicationThread(context: Context, handler: Handler, clientSocket: Sock
         while (!Thread.currentThread().isInterrupted) {
             try {
                 val read = mInput!!.readLine()
-                mUpdateConversationHandler.post(UpdateUIThread(mContext, read))
+                val messageSocket = MessageSocket()
+                messageSocket.message = read
+                messageSocket.senderName = mSocket.inetAddress.toString()
+                messageSocket.type = Constants.TYPE_OTHER
+                val updateUIThread = UpdateUIThread(mContext, messageSocket)
+                mUpdateConversationHandler.post(updateUIThread)
             } catch (e: IOException) {
                 e.printStackTrace()
             } catch (e: IllegalStateException) {

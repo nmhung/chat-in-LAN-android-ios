@@ -12,7 +12,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tv_name"
@@ -21,24 +21,29 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:paddingLeft="10dp"
-            android:paddingTop="10dp"
             android:paddingRight="10dp"
             android:textStyle="bold"
             android:text="@{messageSocket.senderName}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Hung HTC"
+            android:textSize="12sp"
+            android:textColor="@android:color/holo_blue_bright"
             android:layout_marginLeft="8dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:paddingTop="8dp"
+            android:background="@drawable/bg_item_chat_other"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
+            android:gravity="center_horizontal"
+            android:minWidth="50dp"
             android:paddingBottom="10dp"
-            android:textSize="18sp"
+            android:textSize="14sp"
+            android:textColor="@android:color/white"
             android:text="@{messageSocket.message}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_name"

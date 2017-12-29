@@ -29,7 +29,7 @@ class MyApplication : Application() {
     private lateinit var mClientThread: Thread
     private lateinit var mServerSocket: Socket
     private lateinit var mClientSocket: Socket
-     private var mType: Int = TYPE_SERVER
+    private var mType: Int = TYPE_SERVER
 
     override fun onCreate() {
         super.onCreate()
@@ -38,21 +38,11 @@ class MyApplication : Application() {
         mUpdateConversationHandler = Handler()
         mServerThread = Thread(ServerThread(this, mUpdateConversationHandler))
         mServerThread.start()
-
     }
-
-    fun getInstance(): MyApplication {
-        return instance
-    }
-
 
     fun runClientThread(bonjourService: BonjourService) {
         mClientThread = Thread(ClientThread(this, mUpdateConversationHandler, bonjourService))
         mClientThread.start()
-    }
-
-    fun getClientThread(): Thread {
-        return mClientThread
     }
 
     fun setServerSocket(socket: Socket) {
