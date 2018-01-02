@@ -66,6 +66,8 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION"
     kapt "com.android.databinding:compiler:$android_plugin_version"
 
+    implementation "com.google.code.gson:gson:$gson_version"
+
 }
 
 

@@ -30,8 +30,8 @@ class MainActivity : AppCompatActivity(), MainEventHandler, RecyclerBaseAdapter.
     }
 
     override fun apply() {
-        val input = mBinding.etInput.text
-        if (input != null && input.isNotEmpty()) {
+        val input = mBinding.etInput.text.toString()
+        if (input.isNotBlank()) {
             // For non-empty input, restart the discovery with the new input
             restartDiscovery()
         }
@@ -112,8 +112,8 @@ class MainActivity : AppCompatActivity(), MainEventHandler, RecyclerBaseAdapter.
                 .create()
 
         val broadcastConfig = BonjourBroadcastConfig(
-                type = "_hung._tcp",
-                name = "Hung " + Build.MANUFACTURER,
+                type = type,
+                name = Build.MANUFACTURER + Build.MODEL,
                 address = null,
                 port = Constants.PORT,
                 txtRecords = mapOf(
@@ -122,7 +122,14 @@ class MainActivity : AppCompatActivity(), MainEventHandler, RecyclerBaseAdapter.
         rxBonjour.newBroadcast(broadcastConfig)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
+                .subscribe(
+                        {
+                        },
+                        { error ->
+                            error.printStackTrace()
+                            Toast.makeText(this@MainActivity, error.message, Toast.LENGTH_SHORT).show()
+                        }
+                )
 
         mNsdDisposable = rxBonjour.newDiscovery(type)
                 .subscribeOn(Schedulers.io())

@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Handler
 import com.fitken.lanchat.common.Constants
 import com.fitken.lanchat.ui.model.MessageSocket
+import com.google.gson.Gson
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -17,7 +18,6 @@ class CommunicationThread(context: Context, handler: Handler, clientSocket: Sock
 
     private var mContext: Context = context
     private var mInput: BufferedReader? = null
-    private val mSocket: Socket = clientSocket
 
     init {
         try {
@@ -34,9 +34,7 @@ class CommunicationThread(context: Context, handler: Handler, clientSocket: Sock
         while (!Thread.currentThread().isInterrupted) {
             try {
                 val read = mInput!!.readLine()
-                val messageSocket = MessageSocket()
-                messageSocket.message = read
-                messageSocket.senderName = mSocket.inetAddress.toString()
+                val messageSocket = Gson().fromJson(read, MessageSocket::class.java)
                 messageSocket.type = Constants.TYPE_OTHER
                 val updateUIThread = UpdateUIThread(mContext, messageSocket)
                 mUpdateConversationHandler.post(updateUIThread)

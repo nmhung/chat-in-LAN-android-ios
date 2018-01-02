@@ -43,6 +43,7 @@ class MyApplication : Application() {
     fun runClientThread(bonjourService: BonjourService) {
         mClientThread = Thread(ClientThread(this, mUpdateConversationHandler, bonjourService))
         mClientThread.start()
+        mServerThread.interrupt()
     }
 
     fun setServerSocket(socket: Socket) {

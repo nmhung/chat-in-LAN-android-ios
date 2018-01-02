@@ -13,7 +13,7 @@ import com.fitken.lanchat.ui.model.MessageSocket
  * Created by ken on 12/28/17.
  */
 
-class ChatAdapter : BAdapter<BAdapter.BHolder<*, *>, MessageSocket>() {
+class ChatAdapter : BAdapter<BAdapter.BHolder<*, *>, MessageSocket>(null) {
 
 
     override fun getViewHolder(parent: ViewGroup, viewType: Int): BAdapter.BHolder<*, *> {
@@ -29,7 +29,7 @@ class ChatAdapter : BAdapter<BAdapter.BHolder<*, *>, MessageSocket>() {
     }
 
     override fun getItemViewType(position: Int): Int {
-        return dataSource[position].type
+        return dataSource?.get(position)?.type!!
     }
 
     class ItemMeViewHolder(boundView: ItemChatMeBinding) : BAdapter.BHolder<ItemChatMeBinding, MessageSocket>(boundView)

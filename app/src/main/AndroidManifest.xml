@@ -22,12 +22,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.ChatActivity"/>
-        <receiver android:name="MyReceiver" >
-            <intent-filter>
-                <action android:name="com.example.Broadcast" >
-                </action>
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>
