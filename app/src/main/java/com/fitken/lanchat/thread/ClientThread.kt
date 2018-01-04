@@ -24,7 +24,7 @@ class ClientThread(context: Context, handler: Handler, bonjourService: BonjourSe
         try {
             mSocket = Socket(mBonjourService.v4Host, mBonjourService.port)
             MyApplication.instance.setClientSocket(mSocket)
-            val commThread = CommunicationThread(mContext, mHandler, mSocket)
+            val commThread = CommunicationThread(mContext, mHandler, mSocket, null)
             Thread(commThread).start()
             val intent = Intent(mContext, ChatActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK

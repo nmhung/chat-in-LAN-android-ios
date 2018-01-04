@@ -12,4 +12,8 @@ object Constants {
 
     val TYPE_ME = 0
     val TYPE_OTHER = 1
+
+
+    val TYPE_CLIENT = 10
+    val TYPE_SERVER = 11
 }

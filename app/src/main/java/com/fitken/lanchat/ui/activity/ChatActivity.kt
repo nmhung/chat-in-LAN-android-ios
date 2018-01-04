@@ -49,7 +49,9 @@ class ChatActivity : AppCompatActivity(), ChatEventHandler {
         messageSocket.senderName = Build.MANUFACTURER + Build.MODEL
         messageSocket.type = Constants.TYPE_ME
         SendMessageAsync(MyApplication.instance.getSocket()).execute(Gson().toJson(messageSocket))
-        mChatAdapter.dataSource?.add(messageSocket)
+        if (MyApplication.instance.getType() == Constants.TYPE_SERVER) {
+            mChatAdapter.dataSource?.add(messageSocket)
+        }
         mBinding.etInput.setText("")
     }
 
@@ -80,7 +82,7 @@ class ChatActivity : AppCompatActivity(), ChatEventHandler {
         AlertDialogUtils.showConfirm(this, "Are you sure you want to exit this conversation?",
                 DialogInterface.OnClickListener { _, _ ->
                     super.onBackPressed()
-                }, DialogInterface.OnClickListener{ _, _ ->})
+                }, DialogInterface.OnClickListener { _, _ -> })
 
     }
 

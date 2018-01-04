@@ -2,7 +2,10 @@ package com.fitken.lanchat
 
 import android.app.Application
 import android.os.Handler
+import com.fitken.lanchat.common.Constants.TYPE_CLIENT
+import com.fitken.lanchat.common.Constants.TYPE_SERVER
 import com.fitken.lanchat.thread.ClientThread
+import com.fitken.lanchat.thread.CommunicationThread
 import com.fitken.lanchat.thread.ServerThread
 import de.mannodermaus.rxbonjour.BonjourService
 import java.net.Socket
@@ -21,15 +24,15 @@ class MyApplication : Application() {
         instance = this
     }
 
-    private val TYPE_CLIENT = 0
-    private val TYPE_SERVER = 1
 
-    private lateinit var mServerThread: Thread
+    private lateinit var mServerThread : Thread
     private lateinit var mUpdateConversationHandler: Handler
     private lateinit var mClientThread: Thread
     private lateinit var mServerSocket: Socket
     private lateinit var mClientSocket: Socket
     private var mType: Int = TYPE_SERVER
+    private var mIsChatCreated: Boolean = false
+    private var mThreads : Array<CommunicationThread?>? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -43,7 +46,6 @@ class MyApplication : Application() {
     fun runClientThread(bonjourService: BonjourService) {
         mClientThread = Thread(ClientThread(this, mUpdateConversationHandler, bonjourService))
         mClientThread.start()
-        mServerThread.interrupt()
     }
 
     fun setServerSocket(socket: Socket) {
@@ -61,5 +63,25 @@ class MyApplication : Application() {
     fun setClientSocket(socket: Socket) {
         mClientSocket = socket
         mType = TYPE_CLIENT
+    }
+
+    fun getType(): Int {
+        return mType
+    }
+
+    fun isChatCreated(): Boolean {
+        return mIsChatCreated
+    }
+
+    fun setChatCreated(isChatCreated: Boolean){
+        mIsChatCreated = isChatCreated
+    }
+
+    fun getThreads() : Array<CommunicationThread?>? {
+        return mThreads
+    }
+
+    fun setThreads(threads : Array<CommunicationThread?>?){
+        mThreads = threads
     }
 }
