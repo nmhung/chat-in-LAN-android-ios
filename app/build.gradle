@@ -68,6 +68,10 @@ dependencies {
 
     implementation "com.google.code.gson:gson:$gson_version"
 
+    // ViewModel and LiveData
+    implementation "android.arch.lifecycle:extensions:$arch_component_version"
+    annotationProcessor "android.arch.lifecycle:compiler:$arch_component_version"
+
 }
 
 
